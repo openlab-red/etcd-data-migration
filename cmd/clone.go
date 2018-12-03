@@ -20,6 +20,7 @@ func init() {
 
 	cloneCmd.Flags().StringP("source","s", "localhost:2379", "Source Etcd endpoint")
 	cloneCmd.Flags().StringP("target","t", "localhost:3379", "Target Etcd endpoint")
+	cloneCmd.Flags().StringP("overwrite","o", "false", "Overwrite existing keys")
 	viper.BindPFlag("source", cloneCmd.Flags().Lookup("source"))
 	viper.BindPFlag("target", cloneCmd.Flags().Lookup("target"))
 }

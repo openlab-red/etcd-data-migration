@@ -42,7 +42,7 @@ func (c *Cli) Get(key string) (*clientv3.GetResponse) {
 	var err error
 
 	if resp, err = cli.Get(context.Background(), key, clientv3.WithPrefix()); err != nil {
-		log.Fatalln(err)
+		log.Errorln(resp, err)
 	}
 	return resp
 

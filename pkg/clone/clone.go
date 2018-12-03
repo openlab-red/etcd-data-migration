@@ -14,6 +14,7 @@ func Start() {
 	clone := Clone{
 		Source: viper.GetString("source"),
 		Target: viper.GetString("target"),
+		Overwrite: viper.GetBool("overwrite"),
 	}
 
 	clone.start()
@@ -32,7 +33,11 @@ func (c *Clone) start() {
 	for _, kv := range resp.Kvs {
 		key := string(kv.Key)
 		value := string(kv.Value)
-		target.Put(key, value, "")
+
+		if c.Overwrite || target.Get(key).Count == 0 {
+			target.Put(key, value, "")
+		}
+
 	}
 
 }
