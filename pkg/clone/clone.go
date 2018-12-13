@@ -4,6 +4,7 @@ import (
 	"github.com/openlab-red/etcd-data-migration/pkg/utils"
 	"github.com/spf13/viper"
 	"github.com/openlab-red/etcd-data-migration/pkg/etcd"
+	log "github.com/sirupsen/logrus"
 )
 
 func Start() {
@@ -12,8 +13,8 @@ func Start() {
 	utils.Validate(flags)
 
 	clone := Clone{
-		Source: viper.GetString("source"),
-		Target: viper.GetString("target"),
+		Source:    viper.GetString("source"),
+		Target:    viper.GetString("target"),
 		Overwrite: viper.GetBool("overwrite"),
 	}
 
@@ -36,6 +37,11 @@ func (c *Clone) start() {
 
 		if c.Overwrite || target.Get(key).Count == 0 {
 			target.Put(key, value, "")
+		} else {
+			log.WithFields(log.Fields{
+				"key":       key,
+				"overwrite": c.Overwrite,
+			}).Infoln("Exiting")
 		}
 
 	}
