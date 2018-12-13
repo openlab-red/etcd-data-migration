@@ -35,12 +35,14 @@ func (c *Clone) start() {
 		key := string(kv.Key)
 		value := string(kv.Value)
 
-		if c.Overwrite || target.Get(key).Count == 0 {
+		content := target.Get(key)
+		if c.Overwrite || content.Count == 0 {
 			target.Put(key, value, "")
 		} else {
 			log.WithFields(log.Fields{
-				"key":       key,
+				"count":     content.Count,
 				"overwrite": c.Overwrite,
+				"key":       key,
 			}).Infoln("Exiting")
 		}
 
