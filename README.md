@@ -1,7 +1,6 @@
 # Etcd Data Migration
 
-Alpha and WIP
-
+Status: *Alpha*
 
 ## Dump
 
@@ -29,7 +28,9 @@ Usage:
   etcd-data-migration clone [flags]
 
 Flags:
-  -h, --help            help for clone
-  -s, --source string   Source Etcd endpoint (default "localhost:2379")
-  -t, --target string   Target Etcd endpoint (default "localhost:3379")
+  -h, --help               help for clone
+  -o, --overwrite string   Overwrite existing keys (default "false")
+  -s, --source string      Source Etcd endpoint (default "localhost:2379")
+  -t, --target string      Target Etcd endpoint (default "localhost:3379")
+
 ```
